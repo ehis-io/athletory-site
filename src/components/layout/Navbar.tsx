@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Menu, ShoppingBag, X } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -36,8 +37,14 @@ export function Navbar() {
             transition={{ duration: 0.5 }}
         >
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-                <Link href="/" className="text-2xl font-bold font-serif tracking-tighter">
-                    ATHLETORY
+                <Link href="/" className="relative h-12 w-12">
+                    <Image
+                        src="/logo.png"
+                        alt="Athletory Logo"
+                        fill
+                        className="object-contain"
+                        priority
+                    />
                 </Link>
 
                 {/* Desktop Nav */}
@@ -60,7 +67,7 @@ export function Navbar() {
 
 
                     <a
-                        href="https://wa.me/2347060464123"
+                        href="https://wa.me/+2348153655396"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex flex-col items-center justify-center gap-4 p-2 rounded-2xl bg-zinc-800/50 hover:bg-gray-400 hover:border-white border border-transparent transition-all group"
@@ -102,7 +109,7 @@ export function Navbar() {
                         ))}
 
                         <a
-                            href="https://wa.me/2347060464123"
+                            href="https://wa.me/+2348153655396"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex flex-col items-center justify-center gap-4 p-2 rounded-2xl bg-zinc-800/50 hover:bg-gray-400 hover:border-white border border-transparent transition-all group"

@@ -1,13 +1,52 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
+const images = [
+  "/images/main.PNG",
+  "/images/main2.PNG",
+  "/images/main3.PNG",
+  "/images/main4.PNG",
+  "/images/main5.PNG",
+];
+
+const products = [
+  {
+    id: 1,
+    name: "Performance Tee",
+    price: "$85.00",
+    image: "/images/product2.PNG",
+  },
+  {
+    id: 2,
+    name: "Training Short",
+    price: "$65.00",
+    image: "/images/produce3.PNG",
+  },
+  {
+    id: 3,
+    name: "Tech Hoodie",
+    price: "$120.00",
+    image: "/images/product4.PNG",
+  },
+];
+
 export default function Home() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -16,13 +55,24 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <Image
-              src="/images/main.PNG"
-              alt="Athletic Wear Model"
-              fill
-              className="object-cover object-center"
-              priority
-            />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentImageIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1 }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={images[currentImageIndex]}
+                  alt="Athletic Wear Model"
+                  fill
+                  className="object-cover object-center"
+                  priority
+                />
+              </motion.div>
+            </AnimatePresence>
             <div className="absolute inset-0 bg-black/40" />
           </div>
 
@@ -76,26 +126,27 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[1, 2, 3].map((item) => (
+              {products.map((product) => (
                 <motion.div
-                  key={item}
+                  key={product.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: item * 0.1 }}
+                  transition={{ delay: product.id * 0.1 }}
                   className="group cursor-pointer"
                 >
                   <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-muted mb-4">
-                    <div className="absolute inset-0 bg-neutral-200 animate-pulse" />
-                    {/* Placeholder for product images */}
-                    <div className="absolute inset-0 flex items-center justify-center text-muted-foreground/50 font-medium">
-                      Product Image {item}
-                    </div>
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    />
                   </div>
                   <h3 className="font-medium text-lg group-hover:underline underline-offset-4">
-                    Performance Tee {item}
+                    {product.name}
                   </h3>
-                  <p className="text-muted-foreground text-sm">$85.00</p>
+                  <p className="text-muted-foreground text-sm">{product.price}</p>
                 </motion.div>
               ))}
             </div>
@@ -107,10 +158,12 @@ export default function Home() {
           <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="relative aspect-square bg-muted rounded-lg overflow-hidden">
               <div className="absolute inset-0 bg-neutral-300" />
-              {/* Placeholder */}
-              <div className="absolute inset-0 flex items-center justify-center text-muted-foreground font-medium">
-                Model Shot
-              </div>
+              <Image
+                src="/images/model.PNG"
+                alt="Athletic Wear Model"
+                fill
+                className="object-cover object-center"
+              />
             </div>
             <div>
               <h2 className="text-3xl md:text-4xl font-bold font-serif tracking-tight mb-6">
