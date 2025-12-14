@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
 import { motion, HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
@@ -10,13 +9,12 @@ export interface ButtonProps
     extends Omit<HTMLMotionProps<"button">, "children"> {
     variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
     size?: "default" | "sm" | "lg" | "icon";
-    asChild?: boolean;
     loading?: boolean;
     children?: React.ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant = "default", size = "default", asChild = false, loading = false, children, ...props }, ref) => {
+    ({ className, variant = "default", size = "default", loading = false, children, ...props }, ref) => {
         // Basic variants mapping (simplified without cva for now to avoid extra dep)
         const variants = {
             default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm",
@@ -34,10 +32,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             icon: "h-10 w-10",
         };
 
-        const Comp = asChild ? Slot : motion.button;
-
         return (
-            <Comp
+            <motion.button
                 ref={ref}
                 className={cn(
                     "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -51,7 +47,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             >
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {children}
-            </Comp>
+            </motion.button>
         );
     }
 );
