@@ -20,20 +20,20 @@ const images = [
 const products = [
   {
     id: 1,
-    name: "Performance Tee",
-    price: "$85.00",
+    name: "ROAR Apex sleeves ",
+    price: "$7.50",
     image: "/images/product2.PNG",
   },
   {
     id: 2,
-    name: "Training Short",
-    price: "$65.00",
+    name: "ROAR Alpha tee",
+    price: "$6.95",
     image: "/images/produce3.PNG",
   },
   {
     id: 3,
-    name: "Tech Hoodie",
-    price: "$120.00",
+    name: "ROAR Ironwill Sweatshirt and jogger",
+    price: "$17.50",
     image: "/images/product4.PNG",
   },
 ];
