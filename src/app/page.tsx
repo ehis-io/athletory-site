@@ -34,7 +34,7 @@ const products = [
     id: 3,
     name: "ROAR Ironwill Sweatshirt and jogger",
     price: "$17.50",
-    image: "/images/product4.PNG",
+    image: "/images/product5.PNG",
   },
 ];
 
